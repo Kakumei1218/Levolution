@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-int main(void){
-    int gara,suuzi;
-    int tefuda[2][5];
-    srand((unsigned) time(NULL));
-    for(int i=0;i<5;i++){
-    gara = rand() % 4 + 1;//1=♥,2=♠,3=♦,4=♣
-    suuzi = rand() % 13 + 1;
-    printf("%d,%d\n",gara,suuzi);
 
+int main(void){
+    int yamafuda[3][13];
+    for(int i=0;i<3;i++){
+        for(int j=0;j<13;j++){
+            yamafuda[i][j] = 0;//山札の値全部ゼロ
+        }
+    }
+    
     return 0;
 }
