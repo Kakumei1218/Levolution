@@ -8,6 +8,16 @@ void printHand(int player[], char *mark[], char *kazu[]);
 void changeHand(int yamafuda[], int player[], int *top);
 int judge(int player[]);
 void clear();
+void sort(int tmp[], int player[]);
+void royalFlush(int player[], int yakuhantei[]);
+void straighFlush(int player[], int yakuhantei[]);
+void four(int player[], int yakuhantei[]);
+void fullHouse(int player[], int yakuhantei[]);
+void flush(int player[], int yakuhantei[]);
+void straigh(int player[], int yakuhantei[]);
+void three(int player[], int yakuhantei[]);
+void two(int player[], int yakuhantei[]);
+void one(int player[], int yakuhantei[]);
 
 int main(void){
     srand((unsigned)time(NULL));
@@ -17,7 +27,10 @@ int main(void){
     int yamafuda[52];
     int player1[5];
     int player2[5];
-    int rank1, rank2;
+    int yakuhantei1[6];
+    int yakuhantei2[6];
+    int tmp1[5];
+    int tmp2[5];
     //数字表示の素
     char *mark[] = {"♥","♦","♣","♠"};
     char *kazu[] = {"2","3","4","5","6","7","8","9","10","J","Q","k","A"};
@@ -41,12 +54,37 @@ int main(void){
     system("clear");
     printf("両方の手札を表示します\nEnterを押してください\n");
     clear();
+
     //手札表示
     printHand(player1, mark, kazu);
     printHand(player2, mark, kazu);
     //役判定
-    rank1 = judge(player1);
-    rank2 = judge(player2);
+    while(yakuhantei1 == 0){
+        void royalFlush(player1, yakuhantei1);
+        void straighFlush(player1, yakuhantei1);
+        void four(player1, yakuhantei1);
+        void fullHouse(player1, yakuhantei1);
+        void flush(player1, yakuhantei1);
+        void straigh(player1, yakuhantei1);
+        void three(player1, yakuhantei1);
+        void two(player1, yakuhantei1);
+        void one(player1, yakuhantei1);
+    }
+    
+    while(yakuhantei2 == 0){
+        void royalFlush(player2, yakuhantei2);
+        void straighFlush(player2, yakuhantei2);
+        void four(player2, yakuhantei2);
+        void fullHouse(player2, yakuhantei2);
+        void flush(player2, yakuhantei2);
+        void straigh(player2, yakuhantei2);
+        void three(player2, yakuhantei2);
+        void two(player2, yakuhantei2);
+        void one(player2, yakuhantei2);
+    }
+    sort(tmp1, player1);
+    sort(tmp2, player2);
+
 
     return 0;
 }
@@ -63,15 +101,6 @@ void shuffle(int yamafuda[]){
         yamafuda[a] = cp;
     }
 }
-
-//手札配る
-void deal(int yamafuda[], int player[], int *top){
-    for(int i = 0;i<5;i++){
-        player[i] = yamafuda[*top];
-        (*top)++;
-    }
-}
-
 //手札表示
 void printHand(int player[], char *mark[], char *kazu[]){
     for(int i=0;i<5;i++){
@@ -83,8 +112,8 @@ void printHand(int player[], char *mark[], char *kazu[]){
     printf("\n");
 }
 
-//手札入れ替え
-void changeHand(int yamafuda[], int player[],int *top){
+//手札配る
+void deal(int yamafuda[], int player[], int *top){
     int sentaku;
     printf("カードを入れ替えますか？ はい（１）/ いいえ （２）");
     scanf("%d",&sentaku);
@@ -110,57 +139,5 @@ void clear(){
     system("clear");
 }
 
-// 役判定関数
-int judge(int player[]) {
-    int count[13] = {0}; // 各数字の枚数
-    int suits[4] = {0};  // 各マークの枚数
-    int sorted[5];       // 並び替え用
 
-    for(int i = 0; i < 5; i++){
-        int n = player[i] % 13;
-        int s = player[i] / 13;
-        count[n]++;
-        suits[s]++;
-        sorted[i] = n;
-    }
-
-    // ストレート判定用に数字をソート
-    for(int i = 0; i < 4; i++){
-        for(int j = i + 1; j < 5; j++){
-            if(sorted[i] > sorted[j]){
-                int t = sorted[i]; sorted[i] = sorted[j]; sorted[j] = t;
-            }
-        }
-    }
-
-    // フラッシュ判定
-    int is_flush = 0;
-    for(int i = 0; i < 4; i++) if(suits[i] == 5) is_flush = 1;
-
-    // ストレート判定
-    int is_straight = 0;
-    if(sorted[0]+1==sorted[1] && sorted[1]+1==sorted[2] && sorted[2]+1==sorted[3] && sorted[3]+1==sorted[4]) is_straight = 1;
-    // A2345の特殊ストレート
-    if(sorted[0]==0 && sorted[1]==1 && sorted[2]==2 && sorted[3]==3 && sorted[4]==12) is_straight = 1;
-
-    // ペア・スリー・フォーの集計
-    int pairs = 0, three = 0, four = 0;
-    for(int i = 0; i < 13; i++){
-        if(count[i] == 2) pairs++;
-        else if(count[i] == 3) three++;
-        else if(count[i] == 4) four++;
-    }
-
-    // 強い役から順に数値を返して判定
-    if(is_straight && is_flush) { printf("役：ストレートフラッシュ\n"); return 9; }
-    if(four)                    { printf("役：フォーカード\n");       return 8; }
-    if(three && pairs == 1)     { printf("役：フルハウス\n");       return 7; }
-    if(is_flush)                { printf("役：フラッシュ\n");         return 6; }
-    if(is_straight)             { printf("役：ストレート\n");         return 5; }
-    if(three)                   { printf("役：スリーカード\n");       return 4; }
-    if(pairs == 2)              { printf("役：ツーペア\n");           return 3; }
-    if(pairs == 1)              { printf("役：ワンペア\n");           return 2; }
-
-    printf("役：ハイカード（なし）\n");
-    return 1;
-}
+void royalFlush(int player[], int yakuhantei[]){}
