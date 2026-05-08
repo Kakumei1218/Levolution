@@ -10,9 +10,9 @@ int main(void){
     int toranpu,gara1,gara2,suuji1,suuji2,sentaku,rank1,rank2;
     char *mark[] = {"♥","♦","♣","♠"};
     for(int i=0;i<52;i++){
-            yamafuda[i] = i;
+            yamafuda[i] = i + 1;
         }
-        for(int i=0;i<5;i++){
+        for(int i=0;i<51;i++){
         toranpu = rand() % 52;
         if(yamafuda[toranpu] == 100)
     {
