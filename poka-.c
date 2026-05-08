@@ -110,7 +110,7 @@ void clear(){
     system("clear");
 }
 
-// === 役判定関数 (ユーザー定義) ===
+// 役判定関数
 int judge(int player[]) {
     int count[13] = {0}; // 各数字の枚数
     int suits[4] = {0};  // 各マークの枚数
