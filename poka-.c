@@ -117,8 +117,8 @@ void changeHand(int yamafuda[], int player[], int *top){
             }
  //範囲外
             if (n < 0 || n > 5) {
-                printf("0〜5の数字を入力してください(Enter)\n");
-                clear();
+                printf("不正な入力です\n");
+                printf("0〜5の数字を入力してください\n");
                 continue;
             }
 
@@ -133,8 +133,8 @@ void changeHand(int yamafuda[], int player[], int *top){
 
 // 入力チェック
             if(k < 1 || k > 5){
-                printf("不正な入力です\nEnterを押してください\n");
-                clear();
+                printf("不正な入力です\n");
+                printf("1〜5の数字を入力してください\n");
                 i--;        // 交換回数を消費しない
                 continue;
             }
