@@ -6,6 +6,7 @@ void shuffle(int yamafuda[]);
 void deal(int yamafuda[], int player[], int *top);
 void printHand(int player[], char *mark[], char *kazu[]);
 void changeHand(int yamafuda[], int player[], int *top);
+void clearWait();
 void clear();
 void sort(int tmp[]);
 int royalFlush(int player[], int yakuhantei[]);
@@ -20,7 +21,6 @@ int one(int player[], int yakuhantei[]);
 int highCard(int player[], int yakuhantei[]);
 void judge(int player[], int yakuhantei[]);
 void syouhai(int yakuhantei1[], int yakuhantei2[]);
-
 int main(void){
     srand((unsigned)time(NULL));
 
@@ -47,6 +47,8 @@ int main(void){
     //手札配る
     deal(yamafuda, player1, &top);
     deal(yamafuda, player2, &top);
+    printf("player1はEnterを押してください\n");
+    clearWait();
     printHand(player1, mark, kazu);
     changeHand(yamafuda, player1, &top);
     system("clear");
@@ -142,6 +144,12 @@ void changeHand(int yamafuda[], int player[], int *top){
             (*top)++;
         }
     }
+}
+
+//最初の表示時クリア
+void clearWait(){
+    getchar();  // Enter を1回だけ待つ
+    system("clear");
 }
 
 //表示クリア
