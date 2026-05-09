@@ -12,7 +12,7 @@ int main(void){
     for(int i=0;i<52;i++){
             yamafuda[i] = i + 1;
         }
-        for(int i=0;i<51;i++){
+        for(int i=0;i<5;i++){
         toranpu = rand() % 52;
         if(yamafuda[toranpu] == 100)
     {
