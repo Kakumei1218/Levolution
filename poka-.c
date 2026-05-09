@@ -107,12 +107,39 @@ void changeHand(int yamafuda[], int player[], int *top){
 
         printf("何枚交換しますか？");
         scanf("%d",&n);
+        if(n<0 || 5<n){
+            printf("不正な入力です\nEnterを押してください\n");
+            clear();
+            return;
+        }
+
+        int used[5] = {0};
+
         for(int i=0;i<n;i++){
             printf("何枚目のカードを交換しますか？(1〜5) ");
             scanf("%d",&k);
+
+// 入力チェック
+            if(k < 1 || k > 5){
+                printf("不正な入力です\nEnterを押してください\n");
+                clear();
+                i--;        // 交換回数を消費しない
+                continue;
+            }
+
+// 交換済みチェック
+            if(used[k-1] == 1){
+                printf("そのカードは交換済みです\n");
+                i--;        // 交換回数を消費しない
+                continue;
+            }
+
+// 交換済みにする
+            used[k-1] = 1;
+
+// 山札からカードを引く
             player[k-1] = yamafuda[*top];
             (*top)++;
-
         }
     }
 }
