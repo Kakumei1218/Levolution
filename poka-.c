@@ -476,9 +476,15 @@ void syouhai(int yakuhantei1[], int yakuhantei2[]){
     else if(yakuhantei1[0] < yakuhantei2[0]) printf("player2の勝ち\n");
     else{
         for(int i = 1;i<7;i++){
-            if(yakuhantei1[i] > yakuhantei2[i]) printf("player1の勝ち\n");
-            else if(yakuhantei1[i] < yakuhantei2[i]) printf("player2の勝ち\n");
+            if(yakuhantei1[i] > yakuhantei2[i]){
+                printf("player1の勝ち\n");
+                return;
+            }
+            else if(yakuhantei1[i] < yakuhantei2[i]){
+                printf("player2の勝ち\n");
+                return;
+            }
         }
+        printf("引き分け\n");
     }
-    printf("引き分け\n");
 }
