@@ -107,12 +107,22 @@ void changeHand(int yamafuda[], int player[], int *top){
     if(sentaku == 1){
         int n, k;
 
-        printf("何枚交換しますか？");
-        scanf("%d",&n);
-        if(n<0 || 5<n){
-            printf("不正な入力です\nEnterを押してください\n");
-            clear();
-            return;
+        while (1) {
+            printf("何枚交換しますか？(0〜5) ");
+//scanf が数字を読めなかった場合
+            if (scanf("%d", &n) != 1) {
+                printf("数字を入力してください\n");
+                clear();
+                continue;
+            }
+ //範囲外
+            if (n < 0 || n > 5) {
+                printf("0〜5の数字を入力してください(Enter)\n");
+                clear();
+                continue;
+            }
+
+            break; 
         }
 
         int used[5] = {0};
